@@ -95,7 +95,7 @@ while True:
         # img[0: returner[3],0: returner[2]] = roi_img
         # roi_img2 = img[returner[1]:returner[1] + 100, returner[0]:returner[0] + 100]
 
-        # dronu daha küçük bir alanda bulmak
+
         # roi_drone = img[returner[1]+100 :returner[1] + returner[3] + 100, returner[0]-100 :returner[0] + returner[2]+ 100]
         # findObjects(outputs, roi_drone)
 
@@ -105,8 +105,6 @@ while True:
         #print(math.sqrt(distance))
         cv2.putText(img, "Distance:" + ('%d' % int(distance)), (200, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 200),2, cv2.LINE_AA, False)
 
-        # sağ yada sol taraftamı ona bakan bir algoritma yaz
-        # üst taraftamı alt taraftamı ona bakan bir algoritma
         horizantal_difference = int(returner[0] + returner[2] / 2) - int(img.shape[1] / 2)
         if horizantal_difference  > 0:
             print("right")
