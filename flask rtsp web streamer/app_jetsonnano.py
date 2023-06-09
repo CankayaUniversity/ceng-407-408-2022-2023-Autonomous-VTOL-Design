@@ -1,6 +1,4 @@
-[01: 33, 10.06
-.2023] Ayberk
-Aydemir: gstreamer_pipeline = (
+gstreamer_pipeline = (
     "nvarguscamerasrc ! "
     "video/x-raw(memory:NVMM), width=(int)1280, height=(int)720, format=(string)NV12, framerate=(fraction)30/1 ! "
     "nvvidconv flip-method=0 ! "
