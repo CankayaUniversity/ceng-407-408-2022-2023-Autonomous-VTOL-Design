@@ -175,22 +175,3 @@ From Google Maps, get the latitude and longitude coordinates of the global posit
 
 	make px4_sitl_default jmavsim
 
---------------------------------------------------------------------------------
-## 11. RUN IN SIMULATION THE EXAMPLE PRESENTED IN THE ARTICLE
-
-* On command terminal window 1 run:
-	cd ~/src/Firmware
-
-	make px4_sitl gazebo
-
-	Or, I you don't want the graphical simulation of the vehicle:
-	HEADLESS=1 make px4_sitl gazebo
-
-* Open QGroundControl software.
-
-* On command terminal window 2 run:
-
-	cd <folder-where-you-downloaded-the-example>
-
-	Run the article's custom example:
-	python3 write_my_initials.py
