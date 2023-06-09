@@ -1,7 +1,7 @@
 # VTOL UAV AUTONOMOUS FLIGHT WITH PX4 AND MAVSDK
 
 
-This is the guide to install and run the development tools for my Circuit Cellar Magazine article "Quadrotor Autonomous Flight with PX4 and MAVSDK"
+This is the guide to install and run the development tools for "Autonomous VTOL UAV Flight with PX4 and MAVSDK"
 
 --------------------------------------------------------------------------------
 ## 1. INSTALL UBUNTU 18.04
@@ -98,19 +98,6 @@ Check the official guide at: https://dev.px4.io/v1.9.0/en/simulation/jmavsim.htm
 This step is optional if you will use just Gazebo simulation. To try also jMAVSim, run the following command:
 
 	make px4_sitl jmavsim
-
-If you are compiling jMAVSim for the first time and before Gazebo, you could get the same errors mentioned above in the Gazebo installation process. Aditionally, youl could get also the following error:
-
-	Inconsistency detected by ld.so: dl-lookup.c: 111: check_match: Assertion `version->filename == NULL || ! _dl_name_match_p (version->filename, map)' failed!
-
-It's a Java version error; jMAVSim uses specifically Java V8. The solution is outlined here: https://github.com/PX4/jMAVSim/issues/96
-
-	- Solution:
-	For Ubuntu, you can fall back to Java 8 quite easily:
-
-	sudo apt install openjdk-8-jdk
-	sudo update-alternatives --config java # choose option 8
-	rm -rf Tools/jMAVSim/out
 --------------------------------------------------------------------------------
 ## 7. INSTALL MAVSDK-Python LIBRARY
 Check the official installation guide at: https://github.com/mavlink/MAVSDK-Python
@@ -188,22 +175,3 @@ From Google Maps, get the latitude and longitude coordinates of the global posit
 
 	make px4_sitl_default jmavsim
 
---------------------------------------------------------------------------------
-## 11. RUN IN SIMULATION THE EXAMPLE PRESENTED IN THE ARTICLE
-
-* On command terminal window 1 run:
-	cd ~/src/Firmware
-
-	make px4_sitl gazebo
-
-	Or, I you don't want the graphical simulation of the vehicle:
-	HEADLESS=1 make px4_sitl gazebo
-
-* Open QGroundControl software.
-
-* On command terminal window 2 run:
-
-	cd <folder-where-you-downloaded-the-example>
-
-	Run the article's custom example:
-	python3 write_my_initials.py
