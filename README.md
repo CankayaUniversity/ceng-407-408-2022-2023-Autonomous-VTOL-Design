@@ -11,7 +11,10 @@ We are pleased to introduce you our Autonomous UAV VTOL design project Talia. Th
 
 The aim of the project is to transform the Unmanned Aerial Vehicles (UAV), which are widely used around the world today, into a design that combines drone motion technologies (VTOL) with autonomous flight features and to improve their features.
 As it is known, Unmanned Aerial Vehicles carry out their duties in many different areas. We worked on more than one area in our project, where we aimed to improve the mobility and software of Unmanned Aerial Vehicles, which have many different usage areas such as Health, Military, Education, Transportation and Travel.
-<h2 align="center">Topics</h2>
+<h2 align="center">
+   Topics
+</h2>
+
 Topics covered in this project are listed below:
 * Autonomous flight.
 * Vertical Takeoff and landing.
@@ -30,8 +33,12 @@ Talia is a Autonomous Unmanned Aerial Vehicle (UAV) design with Vertical Takeoff
 
 * Object Tracking: In this section, we are talking about the process of tracking our detected object. The tracking algorithm we created, with the help of a square drawn in the middle of the camera screen and a point aligned to the middle of this frame, contains information about the position of the tracked object on the screen, whether our plane is following the object, and the distance of the object from the center.
 
-* Mission Planning: We used the ground station management application QGroundController for the task determination part. The reason we prefer this application is that it is easy and practical to interact with the Pixhawk flight control board in the aircraft.
+* Mission Planning and Autonomous Flight: We used the ground station management application QGroundController for the task determination part. The reason we prefer this application is that it is easy and practical to interact with the Pixhawk flight control board in the aircraft. We used the Gazebo simulation application to improve, visualize and add variety to autonomous drone commands and route use.
 
 * Real-time Streaming: We used the real-time broadcasting feature to obtain in-flight images and flight data of the aircraft. We used Real Time Streaming Protocol for this feature. As a result, we can instantly get the information of the detected and tracked image from the ground station.
 
- 
+<h2 align="center">
+  About Works
+</h2>
+
+* Preparing Custom Dataset: 
