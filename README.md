@@ -41,4 +41,13 @@ Talia is a Autonomous Unmanned Aerial Vehicle (UAV) design with Vertical Takeoff
   About Works
 </h2>
 
-* Preparing Custom Dataset: 
+* Preparing Custom Dataset : There were some prerequisites necessary for us to fulfill the features we set in the software part. One of them was the deep learning model we had to use for image processing operations. For this reason, we used YOLOv4 Tiny to train our deep learning model. Since our dataset was insufficient, we had to use a custom dataset.
+<p align="center">
+   <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/50b1bb1a-3058-4f21-9f99-0d09a770fb28" width="200" height="200">
+   <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/ff8ff04e-8179-44bd-8f77-236b5c91178c" width="200" height="200">
+<p/>
+
+* Object Detection : 
+
+
+
