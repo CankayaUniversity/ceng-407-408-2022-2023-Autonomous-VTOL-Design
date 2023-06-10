@@ -47,7 +47,22 @@ Talia is a Autonomous Unmanned Aerial Vehicle (UAV) design with Vertical Takeoff
    <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/ff8ff04e-8179-44bd-8f77-236b5c91178c" width="200" height="200">
 <p/>
 
-* Object Detection : 
+* Object Detection : After training our custom dataset, we started object detection with our model. We trained our model to say that if the type of object it sees is a car, it is a "car". Due to the content of the dataset, we trained a model for recognizing cars viewed from above with a bird's eye view.
+<p align="center">
+   <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/c14ae757-9098-4a59-a8c2-37b360afc872" width="200" height="200">
+<p/>
+
+* Object Tracking : After the object detection processes were completed, we developed a tracking algorithm. This algorithm basically takes the angle of view of the camera into a frame with certain ratios. Then, an aligner point is placed in the middle of the screen. When the object is entered into the field of view, the distance between the vehicle and the aircraft is measured by measuring the distance between it and the midpoint, and tracking is performed.
+<p align="center">
+   <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/e1ddd6ee-5b77-420a-bcf5-4b51e9a9dcac" width="200" height="200">
+<p/>
+
+* Autonomous Flight Simulation : We used the Gazebo flight simulator program to test the autonomous flight system. We adjusted flight settings, flight missions and basic parameters in the simulation environment with a code file in which the parameters were edited. Later, we completed test flights on our aircraft via the same code file.
+<p align="center">
+   <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/dca9d77f-e2cd-461c-9611-98d981ca283f" width="200" height="200">
+   <img src="https://github.com/CankayaUniversity/ceng-407-408-2022-2023-Autonomous-VTOL-Design/assets/62307840/944bc7fd-abc7-47cd-8425-50f8587de190"
+width="200" height="200">
+<p/>
 
 
 
