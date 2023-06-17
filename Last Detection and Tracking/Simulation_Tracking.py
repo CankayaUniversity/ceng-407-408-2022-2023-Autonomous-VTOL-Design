@@ -116,7 +116,7 @@ async def run():
     confThreshold =  0.2
     nmsThreshold = 0.4
 
-    kumanda_aralık=10
+    control_distance=10
 
     with open(classesFile, 'rt') as f:
         classNames = f.read().rstrip('\n').split('\n')
@@ -167,30 +167,30 @@ async def run():
             horizantal_difference = int(returner[0] + returner[2] / 2) - int(img.shape[1] / 2)
             if horizantal_difference > 0:
                 print("right")
-                cv2.putText(img, "Right:"+ ('%.2f' % float((horizantal_difference)/kumanda_aralık)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 150),
+                cv2.putText(img, "Right:"+ ('%.2f' % float((horizantal_difference)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 150),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
-                E_coord = ((horizantal_difference)/kumanda_aralık)
-                print((horizantal_difference)/kumanda_aralık)
+                E_coord = ((horizantal_difference)/control_distance)
+                print((horizantal_difference)/control_distance)
             else:
                 print("left")
-                cv2.putText(img, "Left:"+ ('%.2f' % float((horizantal_difference*-1)/kumanda_aralık)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 150),
+                cv2.putText(img, "Left:"+ ('%.2f' % float((horizantal_difference*-1)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 150),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
-                E_coord = ((horizantal_difference)/kumanda_aralık)
-                print("left:",(horizantal_difference*-1)/kumanda_aralık)
+                E_coord = ((horizantal_difference)/control_distance)
+                print("left:",(horizantal_difference*-1)/control_distance)
 
             vertical_difference = int(returner[1] + returner[3] / 2) - int(img.shape[0] / 2)
 
             if vertical_difference > 0:
                 print("down")
-                cv2.putText(img, "Down:"+ ('%.2f' % float((vertical_difference)/kumanda_aralık)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 100),
+                cv2.putText(img, "Down:"+ ('%.2f' % float((vertical_difference)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 100),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
-                N_coord = -((vertical_difference)/kumanda_aralık)
+                N_coord = -((vertical_difference)/control_distance)
 
             else:
                 print("up")
-                cv2.putText(img, "Up:"+ ('%.2f' % float((vertical_difference*-1)/kumanda_aralık)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 100),
+                cv2.putText(img, "Up:"+ ('%.2f' % float((vertical_difference*-1)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 100),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
-                N_coord = -((vertical_difference)/kumanda_aralık)
+                N_coord = -((vertical_difference)/control_distance)
 
             if int(img.shape[1] / 4) < returner[0] < int(3 * img.shape[1] / 4) and int(img.shape[0] / 10) < returner[1] < int(9 * img.shape[0] / 10):
                print("içerde")
