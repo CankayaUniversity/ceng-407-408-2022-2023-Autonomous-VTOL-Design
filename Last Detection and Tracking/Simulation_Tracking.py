@@ -16,6 +16,8 @@ HOVERING_ALTITUDE = 15.0  # Altitude in meters to which the drone will perform i
 NUM_FILT_POINTS = 20  # Number of filtering points for the Moving Average Filter
 DESIRED_IMAGE_HEIGHT = 480  # A smaller image makes the detection less CPU intensive
 
+status = False
+
 # A dictionary of two empty buffers (arrays) for the Moving Average Filter
 filt_buffer = {'width': [], 'height': []}
 
@@ -45,17 +47,18 @@ def find_objects(outputs, img, classNames, confThreshold, nmsThreshold):
     for i in indices:
         box = bbox[i]
         x, y, w, h = box[0], box[1], box[2], box[3]
-
+        # Car colors
         cv2.rectangle(img, (x, y), (x + w, y + h), (25, 50, 255), 2)
         cv2.putText(img, f'{classNames[classIds[i]].upper()} {int(confs[i] * 100)}%',
-                    (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (150, 50, 255), 2)
+                    (x, y - 10), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 255, 0), 2)
 
         return x, y, w, h
 
 
 async def run():
+    targetName = "None"
     #cap = cv2.VideoCapture("Test_Video/5.mp4")
-    cap = cv2.VideoCapture("http://10.100.192.88:5000/video_feed")
+    cap = cv2.VideoCapture(0)
 
     if cap.isOpened() is False:
         print('[ERROR] couldnt open the camera.')
@@ -144,10 +147,10 @@ async def run():
         cv2.rectangle(img, (0, 0), (int(img.shape[1]), int(img.shape[0])), (0, 153, 76), 4)
         # cv2.circle(img,(int (img.shape[1]/2),int (img.shape[0]/2)))
 
-        cv2.putText(img, "FOV : Field of View", (10, int(img.shape[0]) - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (200, 0, 0),
+        cv2.putText(img, "FOV : Field of View", (10, int(img.shape[0]) - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (100, 255, 0),
                     2, cv2.LINE_AA, False)
-        cv2.putText(img, "Target : Target of View", (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 200), 2, cv2.LINE_AA, False)
+        cv2.putText(img, "Target : " + targetName , (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 10),
+                    cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 200), 2, cv2.LINE_AA, False)
 
         outputs = net.forward(outputNames)
         find_objects(outputs, img, classNames, confThreshold, nmsThreshold)
@@ -162,58 +165,67 @@ async def run():
             roi_img = img[returner[1]:returner[1] + returner[3], returner[0]:returner[0] + returner[2]]
 
             distance = ((returner[0] - int(img.shape[0] / 2)) ** 2 + (returner[1] - int(img.shape[0] / 2) ** 2))
-            cv2.putText(img, "Distance:" + ('%d' % int(distance)), (200, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 200),2, cv2.LINE_AA, False)
+            cv2.putText(img, "Distance:" + ('%d' % int(distance)), (100, 30), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 200),2, cv2.LINE_AA, False)
 
             horizantal_difference = int(returner[0] + returner[2] / 2) - int(img.shape[1] / 2)
             if horizantal_difference > 0:
-                print("right")
+                print("Right")
                 cv2.putText(img, "Right:"+ ('%.2f' % float((horizantal_difference)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 150),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
+                            cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
                 E_coord = ((horizantal_difference)/control_distance)
                 print((horizantal_difference)/control_distance)
             else:
-                print("left")
+                print("Left")
                 cv2.putText(img, "Left:"+ ('%.2f' % float((horizantal_difference*-1)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 150),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
+                            cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
                 E_coord = ((horizantal_difference)/control_distance)
-                print("left:",(horizantal_difference*-1)/control_distance)
+                print("Left:",(horizantal_difference*-1)/control_distance)
 
             vertical_difference = int(returner[1] + returner[3] / 2) - int(img.shape[0] / 2)
 
             if vertical_difference > 0:
-                print("down")
+                print("Down")
                 cv2.putText(img, "Down:"+ ('%.2f' % float((vertical_difference)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 100),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
+                            cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
                 N_coord = -((vertical_difference)/control_distance)
 
             else:
-                print("up")
+                print("Up")
                 cv2.putText(img, "Up:"+ ('%.2f' % float((vertical_difference*-1)/control_distance)), (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 100),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
+                            cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 200), 2, cv2.LINE_AA, False)
                 N_coord = -((vertical_difference)/control_distance)
 
             if int(img.shape[1] / 4) < returner[0] < int(3 * img.shape[1] / 4) and int(img.shape[0] / 10) < returner[1] < int(9 * img.shape[0] / 10):
-               print("içerde")
+               print("Inside")
+               targetName = "Car"
                cv2.putText(img, "Inside",
-                           (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 250),
-                           cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 220, 0), 2, cv2.LINE_AA, False)
+                           (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 330),
+                           cv2.FONT_HERSHEY_COMPLEX, 1.5, (0, 220, 0), 2, cv2.LINE_AA, False)
+               status = True
+               if status:
+                   await drone.offboard.set_position_ned(PositionNedYaw(N_coord, E_coord, D_coord, yaw_angle))
             else:
-                print("dışarda")
+                print("Outside")
+                targetName = "None"
                 cv2.putText(img, "Outside",
-                            (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 250),
-                            cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 200), 2, cv2.LINE_AA, False)
+                            (int(img.shape[1] / 4) + 5, int(9 * img.shape[0] / 10) - 330),
+                            cv2.FONT_HERSHEY_COMPLEX, 1.5, (0, 0, 200), 2, cv2.LINE_AA, False)
             print(distance)
 
             cv2.circle(img, (int(img.shape[1] / 2), int(img.shape[0] / 2)), 3, (0, 0, 0), 2)
             cv2.circle(img, (int(returner[0] + returner[2] / 2), int(returner[1] + returner[3] / 2)), 3, (0, 0, 255), 2)
 
-            await drone.offboard.set_position_ned(
-                PositionNedYaw(N_coord, E_coord, D_coord, yaw_angle))
+            
 
 
         cv2.imshow('Image', img)
 
-        cv2.waitKey(1)
+        key = cv2.waitKey(1) & 0xFF
+        
+        if key == ord("q"):
+            await drone.action.return_to_launch()
+            break
+        
 
 async def get_image_params(vid_cam):
     # Grab a frame and get its size
